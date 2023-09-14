@@ -1,8 +1,38 @@
 # Envelope-cli 自用脚手架说明
 
+<br/>
+<br/>
+
+![](./assets/newLole.png)
+
 此文档用于备忘以及合作开发，所有集成的构建都是独立的，对于不需要的部分可以删除，cli脚手架尽量做到最小侵入以及极简配置，方便二次开发以及额外配置。
 
+<br/>
+
+
+## 技术清单
+
+| #   | 目录                      | 说明               | 跳转        |
+|-----|-------------------------|------------------|-----------|
+| 1   | springboot-swagger2     | 文档系统             | [跳转](#1)  |
+| 2   | springboot-exception    | 统一异常处理           | [跳转](#2)  |
+| 3   | R                       | 统一返回类型           | [跳转](#3)  |
+| 4   | springboot-mybatis-plus | 简化CRUD操作         | [跳转](#4)  |
+| 5   | junit                   | 单元测试框架           | [跳转](#5)  |
+| 6   | @Log                    | 使用aop切面编程，自动收集日志 | [跳转](#6)  |
+| 7   | springboot-druid        | 整合druid连接池，开启sql监控 | [跳转](#7)  |
+| 8   | springboot-thymeleaf    | 集成模板引擎，支持ssm开发     | [跳转](#8)  |
+| 9   | springboot-email        |使用hutool email工具发送邮件，支持附件和模板| [跳转](#9)  |
+| 10  | springboot-async        |异步多线程| [跳转](#10) |
+| 11  | springboot-validator    | 参数校验 | [跳转](#11) |
+| 12  | captcha | hutool 工具实现登录验证码 |[跳转](#12)|
+| 13  | springboot-security | 安全框架，支持jwt无状态和ssm使用|[跳转](#13)|
+
+
+
 ## 开发相关
+
+<p id="1" />
 
 ### Swagger2 文档
 
@@ -14,6 +44,8 @@
 
 ```common/config/Swagger2Config``` 中定义了Swagger2的配置，有需要请修改
 
+
+<p id="2" />
 
 ### GlobalException 统一异常抛出
 
@@ -45,6 +77,7 @@ class GlobalExceptionControllerTest {
 }
 ```
 
+<p id="3"/>
 
 ### 统一返回类型 R
 
@@ -65,6 +98,7 @@ class TestController {
 }
 ```
 
+<p id="4"/>
 
 ### mybatis-plus
 本项目不使用mybatis，而使用增强版本的 mybatis-plus，对于元数据的编辑（自动插入和自动更新）统一存放在 ```common\handler``` 中
@@ -97,6 +131,7 @@ interface TestMapper{
 
 service中建议定义interface接口再在impl包中定义实现类 是 **仅争对使用mybatis-plus的代码**，如邮件或者其余单独的逻辑业务类可以直接将类写在```service```包中
 
+<p id="5" />
 
 ### junit 单元测试组件
 
@@ -104,6 +139,7 @@ service中建议定义interface接口再在impl包中定义实现类 是 **仅�
 
 每一个组件（或功能）单独编写一个java文件，具体编写格式参考已有的测试文件
 
+<p id="6"/>
 
 ### @Log 日志切面注解
 
@@ -131,6 +167,8 @@ class Controller {
 目前日志只是打印，具体保存逻辑尚未编写，可以在 ```enhance\LogAspect``` 中的环切方法中定义保存或者处理逻辑
 
 
+<p id="7"/>
+
 ### druid 数据库监控
 
 整合druid连接池，开启sql监控，慢SQL检测
@@ -140,6 +178,7 @@ class Controller {
 在 ```application.yaml``` 中修改配置即可，只用于数据库监控和排错，基本不用进行额外操作，不侵入代码，
 具体参数列表可以参考： https://developer.aliyun.com/article/1157595
 
+<p id="8"/>
 
 ### thymeleaf 模板引擎
 项目集成模板引擎，用于开发cli时测试部分页面显示效果，也用引擎重写部分监听页面。
@@ -152,6 +191,7 @@ thymeleaf模板页面存放于 ```resources/template``` 中，
 
 前端页面中如有修改请标注，ssm高度耦合，thymeleaf中（特别是接口部分）的变动请务必通知小组成员！
 
+<p id="9" />
 
 ### email 邮件模板
 
@@ -165,6 +205,8 @@ thymeleaf模板页面存放于 ```resources/template``` 中，
 thymeleaf文件可以直接预览，使用默认浏览器打开即可。
 
 在 ```resources/template/static/loleLoge.png``` 存放的是模板最上面显示的lole，默认为envelope的图标，可以替换成需要的图片，显示比例为60x60。
+
+<p id="10" />
 
 ### @Async 线程池异步注解
 
@@ -186,6 +228,15 @@ thymeleaf文件可以直接预览，使用默认浏览器打开即可。
 
 ---
 
+
+<p id="11"/>
+
+### validation 参数校验
+脚手架集成spring-boot-starter-validation做参数校验，这个模块没太大变化，主要是重写了一些异常处理类，
+需要可以在全局异常类中三次定义。
+
+使用规则不变，详细接口查看：https://blog.csdn.net/weixin_43296313/article/details/121430724
+
 ## 安全相关
 
 ### spring-security 
@@ -201,12 +252,16 @@ envelope-cli预先定义了角色模型，并提供了登录、鉴权的解决�
 
 ![](./assets/er.png)
 
+<p id="12"/>
 
 ### 图形验证码
 
 使用hutool自带的工具改造而来，直接```Get```请求接口```/getCode``` 即可.
 
 源码在 ```controller\th\ThSecurityLoginController``` 中
+
+
+<p id="13"/>
 
 ### SSM方案
 
