@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>envelope-cli 安全认证框架</title>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.1/base.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.1/components.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.1/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.1/utilities.min.css" rel="stylesheet">
+
+    <style>
+        *{
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'!important;
+            color: #222222!important;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .bg-right-custom{
+            background: rgb(30, 41, 59);
+        }
+
+        .text-white{
+            color: #FFF!important;
+        }
+
+        .group {
+            position: relative;
+        }
+
+        .input {
+            font-size: 16px;
+            padding: 10px 10px 10px 5px;
+            display: block;
+            width: 300px;
+            border: none;
+            border-bottom: 1px solid #515151;
+            background: transparent;
+        }
+
+        .input-half{
+            font-size: 16px;
+            padding: 10px 10px 10px 5px;
+            display: block;
+            width: 150px;
+            border: none;
+            border-bottom: 1px solid #515151;
+            background: transparent;
+        }
+
+        .input:focus,
+        .input-half:focus{
+            outline: none;
+        }
+
+        label {
+            color: #999;
+            font-size: 18px;
+            font-weight: normal;
+            position: absolute;
+            pointer-events: none;
+            left: 5px;
+            top: 10px;
+            transition: 0.2s ease all;
+            -moz-transition: 0.2s ease all;
+            -webkit-transition: 0.2s ease all;
+        }
+
+        .input:focus ~ label, .input:valid ~ label,
+        .input-half:focus ~ label, .input-half:valid ~ label{
+            top: -20px;
+            font-size: 14px;
+            color: #5264AE;
+        }
+
+        .bar {
+            position: relative;
+            display: block;
+            width: 300px;
+        }
+        .bar-half{
+            position: relative;
+            display: block;
+            width: 150px;
+        }
+
+        .bar:before, .bar:after,
+        .bar-half:before, .bar-half:after{
+            content: '';
+            height: 2px;
+            width: 0;
+            bottom: 1px;
+            position: absolute;
+            background: #5264AE;
+            transition: 0.2s ease all;
+            -moz-transition: 0.2s ease all;
+            -webkit-transition: 0.2s ease all;
+        }
+
+        .bar:before,
+        .bar-half:before{
+            left: 50%;
+        }
+
+        .bar:after ,
+        .bar-half:after{
+            right: 50%;
+        }
+
+        .input:focus ~ .bar:before,
+        .input:focus ~ .bar:after,
+        .input-half:focus ~ .bar-half:before,
+        .input-half:focus ~ .bar-half:after{
+            width: 50%;
+        }
+
+        .highlight {
+            position: absolute;
+            height: 60%;
+            width: 300px;
+            top: 25%;
+            left: 0;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        .highlight-half{
+            position: absolute;
+            height: 60%;
+            width: 150px;
+            top: 25%;
+            left: 0;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .input:focus ~ .highlight,
+        .input-half:focus ~ .highlight-half{
+            animation: inputHighlighter 0.3s ease;
+        }
+
+        @keyframes inputHighlighter {
+            from {
+                background: #5264AE;
+            }
+
+            to {
+                width: 0;
+                background: transparent;
+            }
+        }
+
+        .input-text{
+            color: #2F2F2F!important;
+            opacity: 0.8;
+            font-size: 16px;
+        }
+
+        button {
+            border: none;
+            display: block;
+            position: relative;
+            padding: 0.4em 3em;
+            font-size: 18px;
+            background: transparent;
+            cursor: pointer;
+            user-select: none;
+            overflow: hidden;
+            color: royalblue;
+            z-index: 1;
+            font-family: inherit;
+            font-weight: 300;
+        }
+
+        button span {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: -1;
+            border: 2px solid royalblue;
+        }
+
+        button span::before {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 6%;
+            height: 500%;
+            background: #FFFFFF;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-60deg);
+            transition: all 0.3s;
+        }
+
+        button:hover span::before {
+            transform: translate(-50%, -50%) rotate(-90deg);
+            width: 100%;
+            background: royalblue;
+        }
+
+        button:hover {
+            color: white;
+        }
+
+        button:active span::before {
+            background: #2751cd;
+        }
+    </style>
+</head>
+<body>
+
+<div class='mx-auto '>
+
+    <div class='grid mx-auto grid-cols-2 h-screen'>
+        <div class="flex justify-end items-center">
+
+            <div>
+                <img class='mb-8' width="60" height="60" loading="lazy" src="https://z1.ax1x.com/2023/09/14/pPRI1iR.png" alt="logo"/>
+
+                <div class="mb-4 font-bold text-4xl">
+                    Sign in
+                </div>
+
+                <div class="mb-12" >
+                    Don't have an account?
+                    <a style="color: #5264AE!important;" href="#">Sign up</a>
+                </div>
+
+                <!--这里需要加上tomcat服务器的前缀(如果有设置的话)！-->
+                <form action="/envelope/login" method="post" class="mr-20">
+                    <div class="group mb-8">
+                        <input id="username" name="username" required="" type="text" class="input"/>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label class="input-text">Name</label>
+                    </div>
+
+                    <div class="group mb-12">
+                        <input required="" id="password" name="password" type="text" class="input"/>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label class="input-text">Password</label>
+                    </div>
+
+                    <div class="flex">
+                        <div class="group mb-12">
+                            <input required="" id="qrcode" name="qrcode" type="text" class="input-half"/>
+                            <span class="highlight-half"></span>
+                            <span class="bar-half"></span>
+                            <label class="input-text">Qrcode</label>
+                        </div>
+                        <div>
+                            <img style="width: 140px!important;height: 50px!important;margin-left: 10px!important;" src="/envelope/getCode"/>
+                        </div>
+                    </div>
+
+
+                    <button class="" type="submit"> Sign in
+                        <span></span>
+                    </button>
+
+
+                    <div th:if="${param.error}" style="color: red!important;">
+                        Account or password error.
+                    </div>
+                    <div th:if="${param.logout}" style="color: red!important;">
+                        Login failure.
+                    </div>
+                    <div th:if="${param.captchaInvalid}" style="color: red!important;">
+                        QrCode error.
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+        <div class="relative bg-right-custom container w-full flex justify-center items-center">
+
+            <div class="w-full px-20">
+                <div class="text-white lg:text-6xl font-bold">Welcome to</div>
+                <div class="text-white lg:text-5xl font-bold">envelope-cli</div>
+
+                <div class="text-white opacity-80 font-thin sm:max-w-2xl mt-8 text-xl">
+                    This is the spring security security framework integrated with envelope cli, which connects to the system and uses subsequent services.
+                </div>
+
+                <div class="mt-8 flex items-center">
+                    <img width="40" height="40" loading="lazy" class="rounded-full" src="https://z1.ax1x.com/2023/09/14/pPRInLF.jpg" alt="xiye"/>
+                    <span class='text-xl pl-4 text-white opacity-80 font-thin'>developed by Cayon_xiye.</span>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+
+
+</body>
+</html>

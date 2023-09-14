@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>邮件系统</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.1/base.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.1/components.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.1/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.1/utilities.min.css" rel="stylesheet">
+
+    <style>
+        *{
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+            color: #222222!important;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+<div class='container mx-auto py-12'>
+
+    <img class="mx-auto mb-8" src="static/loleLogo.png" width="60" height="60" loading="lazy" alt="envelope icon"/>
+
+
+    <div class='mx-auto sm:max-w-2xl border-2 rounded-12 py-14 px-12'>
+        <p class="mb-4">
+            Hi, <span class="font-bold" th:text="${name}"></span>!
+            Welcome to the envelope cli email system.
+        </p>
+
+        <p class="mb-4">
+            It seems that you are undergoing application authentication.Below is your authorization code:
+        </p>
+
+        <div class='mx-auto lg:max-w-xs bg-gray-200 text-center text-base px-2 py-4 mb-4'>
+            <span class="font-bold text-base" th:text="${code}"></span>
+        </div>
+
+        <p class="mb-4">
+            The validity of the authorization code is 5 minutes. Please operate it promptly.
+            During the validity period, the authorization code will continue to be valid. Please do not apply repeatedly.
+        </p>
+
+        <p class="mb-4">
+            Thank you for your support.
+        </p>
+
+        <p class="mb-4">
+            By envelope team.
+        </p>
+    </div>
+
+
+</div>
+
+
+
+</body>
+</html>
