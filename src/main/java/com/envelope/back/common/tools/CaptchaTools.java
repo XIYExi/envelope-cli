@@ -21,6 +21,7 @@ public class CaptchaTools {
      */
     public static void getCircleCaptcha(HttpSession session, HttpServletResponse response) throws IOException {
         LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(200, 100, 5, 20);
+        System.err.println("qrcode print: " + lineCaptcha.getCode());
         session.setAttribute(CAPTCHA, lineCaptcha.getCode());
         writeResp(lineCaptcha, response);
     }
@@ -32,7 +33,13 @@ public class CaptchaTools {
      */
     public static boolean verify(String code) {
         HttpSession session = RequestUtils.getHttpSession();
+
+        System.err.println("session: " + session);
+
         String captcha = (String) session.getAttribute(CAPTCHA);
+
+
+
         return code.equals(captcha);
     }
 

@@ -55,6 +55,26 @@ spring:
     prefix: classpath:/templates/
     # 网页资源默认.html结尾
     mode: HTML
+  # redis
+  redis:
+    database: 0
+    host: 118.195.223.191 # 这是我的青春版服务器，docker中只部署了redis，kafka，mongdb
+    port: 6379
+    # 连接超时时间
+    timeout: 3000
+    # 连接池配置
+    lettuce:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active:  8
+        # 连接池中的最大空闲连接
+        max-idle: 8
+        min-idle: 0
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1
+    password: 123456
+
+
 
 
 #mybatis-plus:
@@ -84,3 +104,10 @@ email:
 security:
   basic:
     enabled: true
+
+# jwt
+jwt:
+  # 密钥
+  secret: envelope.cli.secret
+  # 有效期（秒）
+  expire: 86400

@@ -25,8 +25,9 @@
 | 9   | springboot-email        |使用hutool email工具发送邮件，支持附件和模板| [跳转](#9)  |
 | 10  | springboot-async        |异步多线程| [跳转](#10) |
 | 11  | springboot-validator    | 参数校验 | [跳转](#11) |
-| 12  | captcha | hutool 工具实现登录验证码 |[跳转](#12)|
-| 13  | springboot-security | 安全框架，支持jwt无状态和ssm使用|[跳转](#13)|
+| 12  | captcha | hutool 工具实现登录验证码 | [跳转](#12) |
+| 13  | springboot-security | 安全框架，支持jwt无状态和ssm使用| [跳转](#13) |
+| 14 | scheduler | 异步定时任务 | [跳转](#14) |
 
 
 
@@ -226,6 +227,16 @@ thymeleaf文件可以直接预览，使用默认浏览器打开即可。
 - 
 其余情况请**尽量**不要使用线程池和异步注解！
 
+<p id="14" />
+
+### scheduler 异步定时任务
+
+对定时器的封装，只需要实现并重写```ScheduleService```方法即可，主要使用场景为:
+- 需要统一执行定时任务
+- 需要统一线程池管理，进行系统优化
+- 进行代码优化时
+
+
 ---
 
 
@@ -289,4 +300,25 @@ class ThSecurityController {
 
 ### jwt 无状态认证
 对应前后端分离的解决方案，选择jwt方案的时候建议把ssm部分的代码删了（不删也不影响，不要动接口就行）
+
+
+
+---
+
+## 缓存策略
+
+### redis
+
+项目不涉及具体的redis操作，只需要会用redisTemplate就行，关于redisTemplate的详细使用方法可以参考下述博客：
+
+- https://blog.csdn.net/lydms/article/details/105224210 （一）
+- https://blog.csdn.net/lydms/article/details/105512006 （二）
+- https://blog.csdn.net/lydms/article/details/106068364 （三）
+
+**注意：在项目中操作redis缓存尽量不要用BoundValueOperations或者ValueOperations来操作，建议全部使用redisTemplate.boundValueOps()...**，
+增加可读性，减少记忆量。
+
+
+
+
 

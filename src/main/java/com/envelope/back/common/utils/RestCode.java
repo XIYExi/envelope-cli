@@ -26,5 +26,11 @@ public interface RestCode {
 
     /*用户登出，返回给前端显示用，注意：这个异常用于多设备登录时被挤号的时候抛出*/
     public static Integer ERROR_LOGOUT = 5558;
+
+
+    /**
+     * 匿名用户访问无权限资源异常
+     */
+    public static Integer ERROR_Anonymous = 5050;
 }
 

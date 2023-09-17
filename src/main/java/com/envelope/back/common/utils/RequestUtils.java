@@ -6,7 +6,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class RequestUtils {
+public class  RequestUtils {
 
     /**
      * 获取session

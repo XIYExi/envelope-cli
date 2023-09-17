@@ -1,4 +1,4 @@
-package com.envelope.back.security;
+package com.envelope.back.security.th;
 
 import com.envelope.back.enhance.exception.CaptchaInvalidException;
 import lombok.extern.slf4j.Slf4j;

@@ -26,6 +26,24 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!--redis包-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!--session存储进redis共享，配合nginx直接实现分布式部署，简单粗暴-->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-pool2 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+
         <!--thymeleaf模板引擎依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
